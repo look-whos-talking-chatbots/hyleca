@@ -1,0 +1,799 @@
+{
+  "version": "v2",
+  "name": "roby-mi",
+  "description": "Roby: the smoking cessation bot, motivational interviewing variant",
+  "language": "en",
+  "slot_fillers": {
+    "static_slots": {},
+    "retrieval_slots": {}
+  },
+  "dialogue_flows": [
+    {
+      "id": 1111,
+      "title": "Session-1",
+      "description": "The dialogue states that should be followed during the first session.",
+      "conditions": [],
+      "states": [
+        {
+          "id": 1001,
+          "conditions": [],
+          "questions": [],
+          "categories": [],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [],
+              "text": [
+                "Hi there, I'm MockUp!"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [],
+              "trigger": [
+                "state",
+                1002
+              ]
+            }
+          ],
+          "type": "monologue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 1002,
+          "conditions": [],
+          "questions": [
+            {
+              "conditions": [],
+              "text": [
+                "What can I call you?"
+              ]
+            }
+          ],
+          "categories": [],
+          "entities": [
+            [
+              "name",
+              "name"
+            ]
+          ],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "name",
+                  null,
+                  "!="
+                ]
+              ],
+              "text": [
+                "Nice to meet you, {{ name }}!"
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "name",
+                  null,
+                  "=="
+                ]
+              ],
+              "text": [
+                "I'm sorry, I didn't get that. Could you rephrase what you just said?"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "name",
+                  null,
+                  "!="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1003
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "name",
+                  null,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1002
+              ]
+            }
+          ],
+          "type": "dialogue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 1003,
+          "conditions": [],
+          "questions": [
+            {
+              "conditions": [],
+              "text": [
+                "Could you tell me your 4-digit participant ID? (You can make up one)"
+              ]
+            }
+          ],
+          "categories": [],
+          "entities": [
+            [
+              "participant_id",
+              "params.participant.id"
+            ]
+          ],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "params.participant.id",
+                  null,
+                  "!="
+                ]
+              ],
+              "text": [
+                "I think I got it."
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.participant.id",
+                  null,
+                  "=="
+                ]
+              ],
+              "text": [
+                "Sorry! I have to hear your ID before we can continue. It must be a number consists of 4 digits."
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "params.participant.id",
+                  null,
+                  "!="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1004
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.participant.id",
+                  null,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1003
+              ]
+            }
+          ],
+          "type": "dialogue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 1004,
+          "conditions": [],
+          "questions": [
+            {
+              "conditions": [],
+              "text": [
+                "Is this correct {{ params.participant.id }}?"
+              ]
+            }
+          ],
+          "categories": [
+            [
+              "yes_no",
+              "params.participant.idConfirm"
+            ]
+          ],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "params.participant.idConfirm",
+                  "yes",
+                  "=="
+                ]
+              ],
+              "text": [
+                "Great! Thanks for joining me here today, {{ name }}!"
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.participant.idConfirm",
+                  "no",
+                  "=="
+                ]
+              ],
+              "text": [
+                "Then please tell me again"
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.participant.idConfirm",
+                  null,
+                  "=="
+                ]
+              ],
+              "text": [
+                "I'm sorry, I didn't get that. Could you rephrase what you just said?"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "params.participant.idConfirm",
+                  "yes",
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1005
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.participant.idConfirm",
+                  "no",
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1003
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.participant.idConfirm",
+                  null,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1004
+              ]
+            }
+          ],
+          "type": "dialogue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 1005,
+          "conditions": [],
+          "questions": [
+            {
+              "conditions": [],
+              "text": [
+                "Could you please tell me your age?"
+              ]
+            }
+          ],
+          "intents": [],
+          "entities": [
+            [
+              "numbers",
+              "age"
+            ]
+          ],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "!="
+                ]
+              ],
+              "text": [
+                "Thanks!"
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "=="
+                ]
+              ],
+              "text": [
+                "I'm sorry, I didn't get that. Could you rephrase what you just said?"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "!="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1006
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                1005
+              ]
+            }
+          ],
+          "type": "dialogue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 1006,
+          "conditions": [],
+          "questions": [],
+          "categories": [],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [],
+              "text": [
+                "This is pretty much what I planned for our first session.",
+                "Thanks for the nice conversation and for sharing so much with me, {{ name }}!",
+                "See you in the next session in a minute!"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [],
+              "trigger": [
+                "flow",
+                10000
+              ]
+            }
+          ],
+          "type": "monologue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": [
+            [
+              "set_on_hold_time",
+              "progress.onhold.start",
+              "post"
+            ],
+            [
+              "set_on_hold_true",
+              "progress.onhold.is",
+              "post"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2222,
+      "title": "Session-2",
+      "description": "The dialogue states that should be followed during the second session.",
+      "conditions": [],
+      "states": [
+        {
+          "id": 2001,
+          "conditions": [],
+          "questions": [],
+          "categories": [],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [],
+              "text": [
+                "Welcome back, {{ name }}!",
+                "The last session you have told me that you were {{ age }} years old."
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [],
+              "trigger": [
+                "state",
+                2002
+              ]
+            }
+          ],
+          "type": "monologue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 2002,
+          "conditions": [],
+          "questions": [
+            {
+              "conditions": [],
+              "text": [
+                "Is this still your age?"
+              ]
+            }
+          ],
+          "categories": [
+            [
+              "yes_no",
+              "params.age.confirm"
+            ]
+          ],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "params.age.confirm",
+                  "yes",
+                  "=="
+                ]
+              ],
+              "text": [
+                "Great! There is no need for an update."
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.age.confirm",
+                  "no",
+                  "=="
+                ]
+              ],
+              "text": [
+                "Then let's update the information!"
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.age.confirm",
+                  null,
+                  "=="
+                ]
+              ],
+              "text": [
+                "I'm sorry, I didn't get that. Could you rephrase what you just said?"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "params.age.confirm",
+                  "yes",
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "flow",
+                9999
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.age.confirm",
+                  "no",
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                2003
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "params.age.confirm",
+                  null,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                2002
+              ]
+            }
+          ],
+          "type": "dialogue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        },
+        {
+          "id": 2003,
+          "conditions": [],
+          "questions": [
+            {
+              "conditions": [],
+              "text": [
+                "Could you please tell me your age now?"
+              ]
+            }
+          ],
+          "intents": [],
+          "entities": [
+            [
+              "numbers",
+              "age"
+            ]
+          ],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "!="
+                ]
+              ],
+              "text": [
+                "Thanks, noted!"
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "=="
+                ]
+              ],
+              "text": [
+                "I'm sorry, I didn't get that. Could you rephrase what you just said?"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "!="
+                ]
+              ],
+              "trigger": [
+                "flow",
+                9999
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "age",
+                  null,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "state",
+                2003
+              ]
+            }
+          ],
+          "type": "dialogue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        }
+      ]
+    },
+    {
+      "id": 9999,
+      "title": "termination",
+      "description": "Messages to be sent when all the pre-scripted flows are executed or the conversation needs to be terminated",
+      "conditions": [],
+      "states": [
+        {
+          "id": 9901,
+          "conditions": [],
+          "questions": [],
+          "intents": [],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [],
+              "text": [
+                "Alright, this was all the dialogue that I was designed to have!",
+                "It was fun to talk to you!"
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [],
+              "trigger": [
+                "flow",
+                10000
+              ]
+            }
+          ],
+          "type": "monologue",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": []
+        }
+      ]
+    },
+    {
+      "id": 10000,
+      "title": "onhold",
+      "description": "On hold messages, in case the user wants to write the bot off-times.",
+      "conditions": [],
+      "states": [
+        {
+          "id": 10001,
+          "conditions": [],
+          "questions": [],
+          "intents": [],
+          "entities": [],
+          "responses": [
+            {
+              "conditions": [
+                [
+                  "progress.onhold.is",
+                  true,
+                  "=="
+                ]
+              ],
+              "text": [
+                "Hi {{ name }}, thanks for reaching out, our next session is scheduled for later."
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "progress.onhold.is",
+                  false,
+                  "=="
+                ],
+                [
+                  "progress.flow.past",
+                  9999,
+                  "in"
+                ]
+              ],
+              "text": [
+                "This was all I could say! Perhaps you can add more options to my dialogue."
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "progress.onhold.is",
+                  false,
+                  "=="
+                ],
+                [
+                  "progress.flow.past",
+                  9999,
+                  "!in"
+                ]
+              ],
+              "text": [
+                ""
+              ]
+            }
+          ],
+          "triggers": [
+            {
+              "conditions": [
+                [
+                  "progress.onhold.is",
+                  true,
+                  "=="
+                ]
+              ],
+              "trigger": [
+                "flow",
+                10000
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "progress.onhold.is",
+                  false,
+                  "=="
+                ],
+                [
+                  "progress.flow.past",
+                  9999,
+                  "in"
+                ]
+              ],
+              "trigger": [
+                "flow",
+                10000
+              ]
+            },
+            {
+              "conditions": [
+                [
+                  "progress.onhold.is",
+                  false,
+                  "=="
+                ],
+                [
+                  "progress.flow.past",
+                  1111,
+                  "in"
+                ]
+              ],
+              "trigger": [
+                "flow",
+                2222
+              ]
+            }
+          ],
+          "type": "on-hold",
+          "multipleChoice": [],
+          "generators": [],
+          "actions": [
+            [
+              "get_on_hold",
+              "progress.onhold.is",
+              "repeat"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

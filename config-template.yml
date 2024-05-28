@@ -1,0 +1,20 @@
+# WARNING: Please read the descriptions and remove the keys that are not required for your purposes.
+
+# Following keys are required to run the basic functionality of the HyLECA system.
+paths:
+  project: '< REQUIRED absolute path to the main project folder (e.g. /.../hyleca) >'
+  bots: '< REQUIRED absolute path to the folder contains your bots (e.g. /.../hyleca/bots) >'
+
+# Following is only required if you are going to call external services (e.g. models from OpenAI API)
+api_keys:
+  openai: '< secret key that authorizes connection to the OpenAI API >'
+
+# Following is only required if you plan to use the HyLECA API
+elastic_search:
+  host: '< URL to the database server >'
+  port: '< port that connects to the database server >'
+  api_key: '< secret key that authorizes connection to the database >'
+
+# Following is only required if you are going to connect the HyLECA API to an external chat interface (e.g. RocketChat)
+hook_urls:
+  < custom bot-name >: "< webhook URL that can send requests to the chat interface server >"
